@@ -16,6 +16,7 @@
   //
 
   controllers.controller('ApplicationCtrl', ['$rootScope', '$location', '$window', 'Session',
+
     function ($rootScope, $location, $window, Session) {
       var lastStep = Session.get('last_step');
 
@@ -35,6 +36,7 @@
 
       $window.onbeforeunload = onBeforeUnload;
     }
+
   ]);
 
   //
@@ -43,8 +45,8 @@
   //
 
   controllers.controller('DialogCtrl', ['$scope', 'Session',
-    function ($scope, Session) {
 
+    function ($scope, Session) {
       var showDialog = Session.isPersisted();
 
       var $main   = document.getElementById('main');
@@ -81,6 +83,7 @@
         setTimeout(show, 800);
       }
     }
+
   ]);
 
   //
@@ -90,9 +93,7 @@
   controllers.controller('0Ctrl', [ '$scope',
 
     function ($scope) {
-
       $scope.section = 0;
-    
     }  
 
   ]);
@@ -102,8 +103,8 @@
   //
 
   controllers.controller('10Ctrl', ['$scope', 'Session', 'NAICSCategory', 'CategoryKeywords',
-    function ($scope, Session, NAICSCategory, CategoryKeywords) {
 
+    function ($scope, Session, NAICSCategory, CategoryKeywords) {
       $scope.section = 10;
 
       //
@@ -188,6 +189,7 @@
 
       $scope.select = select;
     }
+
   ]);
 
   //
@@ -197,7 +199,6 @@
   controllers.controller('15Ctrl', ['$scope', 'Session',
 
     function ($scope, Session) {
-
       $scope.section = 15;
 
       var save = function () {
@@ -213,12 +214,13 @@
       $scope.description = Session.get('description');
       $scope.save = save
     }
+
   ]);
 
   controllers.controller('30Ctrl', [
 
     function () {
-    
+      $scope.section = 30;
     }  
 
   ]);
@@ -230,7 +232,6 @@
   controllers.controller('40Ctrl', [ '$scope', 'Session', 'Address', 'City', 'Map',
 
     function ($scope, Session, Address, City, Map) {
-
       $scope.section = 40;
       $scope.showRight = true;
 
@@ -369,6 +370,7 @@
 
       City.find({}, onCityLimitsSuccess, onCityLimitsError);
     }
+
   ]);
 
   //
@@ -376,8 +378,8 @@
   //
 
   controllers.controller('41Ctrl', ['$scope', 'Session', 'Neighborhood', 'City', 'Map',
-    function ($scope, Session, Neighborhood, City, Map) {
 
+    function ($scope, Session, Neighborhood, City, Map) {
       $scope.section = 41;
       $scope.showRight = true;
 
@@ -393,25 +395,19 @@
       }
 
       var showOverlay = function (overlay) {
-        if ( ng.isUndefined(overlay) ) {
-          return false;
-        } else {
+        if ( ng.isDefined(overlay) ) {
           overlay.setFillOpacity(0.15);
         }
       }
 
       var hideOverlay = function (overlay) {
-        if ( ng.isUndefined(overlay) ) {
-          return false;
-        } else {
+        if ( ng.isDefined(overlay) ) {
           overlay.setFillOpacity(0.0);
         }
       }
 
       var zoomToOverlay = function (overlay) {
-        if ( ng.isUndefined(overlay) ) {
-          return false;
-        } else {
+        if ( ng.isDefined(overlay) ) {
           map.setBounds( overlay.getBounds() );
         }
       }
@@ -443,14 +439,13 @@
           hideArea($scope.selected);
           showArea(area);
           zoomToArea(area);
-          $scope.selected = area;
         } else {
-          $scope.selected = undefined;
           hideArea(area);
           zoomToOverlay( getOverlay($scope.city) );
+          area = undefined;
         }
 
-        Session.set({ area: $scope.selected });
+        $scope.selected = area;
       }
 
       //
@@ -521,11 +516,10 @@
 
       Neighborhood.all({}, onNeighborhoodSuccess, onNeighborhoodError);
 
-      $scope.onAreaMouseover = onAreaMouseover;
-      $scope.onAreaMouseout = onAreaMouseout;
-      $scope.select = select;
       $scope.map = map;
+      $scope.select = select;
     }
+
   ]);
 
   //
@@ -535,6 +529,7 @@
   controllers.controller('45Ctrl', [ '$scope', 'Map',
 
     function ($scope, Map) {
+      $scope.section = 45;
       var map = new Map();
       $scope.map = map;
     }
@@ -548,6 +543,7 @@
   controllers.controller('50Ctrl', [ '$scope', 'Map',
 
     function ($scope, Map) {
+      $scope.section = 50;
       var map = new Map();
       $scope.map = map;
     }
